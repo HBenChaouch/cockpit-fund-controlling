@@ -163,7 +163,7 @@ const LANDING = [
   { id: "A1", q1Actual: 1.00, landing: 4.04, cause: "Indexation ILAT moindre qu'anticipé au BP" },
   { id: "A2", q1Actual: 0.95, landing: 3.70, cause: "Départ locataire confirmé au T3 (2 étages), relocation visée 2027" },
   { id: "A3", q1Actual: 0.89, landing: 3.62, cause: "Indexation pleine, occupation 98 %" },
-  { id: "A4", q1Actual: 0.67, landing: 2.67, cause: "Franchise accordée au renouvellement du moyeu food court" },
+  { id: "A4", q1Actual: 0.67, landing: 2.67, cause: "Franchise accordée au renouvellement du pôle food court" },
   { id: "A5", q1Actual: 0.39, landing: 1.56, cause: "IRL + taux de remplissage supérieur au BP" },
   { id: "A6", q1Actual: 0.40, landing: 1.62, cause: "Vacance ponctuelle d'un plateau au T2" }
 ];
