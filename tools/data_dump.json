@@ -1,0 +1,328 @@
+{
+  "ASSETS": [
+    {
+      "id": "A1",
+      "name": "Bureau Paris QCA",
+      "type": "Bureau",
+      "profile": "Core+",
+      "location": "Paris 8e",
+      "occupancy": 0.97,
+      "wault": 5.2,
+      "leaseIndex": "ILAT",
+      "value": 94,
+      "cap": 0.0425,
+      "noi": 4,
+      "debt": 42,
+      "allInRate": 0.042,
+      "floatShare": 0.35,
+      "hedgeRatio": 0.5,
+      "capexReserve": 0.35,
+      "bpNoi": 4.1,
+      "capAnchor": "Prime bureaux IDF 4,00 % (JLL GPR Q1 2026) + 25 bps Core+ non prime",
+      "watch": false,
+      "watchNote": null,
+      "valuationDetail": null
+    },
+    {
+      "id": "A2",
+      "name": "Tour La Défense",
+      "type": "Bureau",
+      "profile": "Value-add",
+      "location": "Courbevoie",
+      "occupancy": 0.83,
+      "wault": 3.1,
+      "leaseIndex": "ILAT",
+      "value": 50.4,
+      "cap": 0.075,
+      "noi": 3.78,
+      "debt": 31,
+      "allInRate": 0.0485,
+      "floatShare": 0.65,
+      "hedgeRatio": 0.25,
+      "capexReserve": 0.95,
+      "bpNoi": 4.2,
+      "capAnchor": "Hypothèse analyste : tour secondaire La Défense, hors périmètre prime — segment fortement décoté post-2022",
+      "watch": true,
+      "watchNote": "Actif à surveiller : vacance 17 %, WAULT 3,1 ans, capex/TI €0,95m, refinancement 2027, 48,8 % de la dette en exposition nette aux taux.",
+      "valuationDetail": null
+    },
+    {
+      "id": "A3",
+      "name": "Plateforme logistique",
+      "type": "Logistique",
+      "profile": "Core+",
+      "location": "Corridor Lyon–Marseille",
+      "occupancy": 0.98,
+      "wault": 6.8,
+      "leaseIndex": "ILAT",
+      "value": 70,
+      "cap": 0.051,
+      "noi": 3.57,
+      "debt": 32,
+      "allInRate": 0.0405,
+      "floatShare": 0.3,
+      "hedgeRatio": 0.6,
+      "capexReserve": 0.25,
+      "bpNoi": 3.6,
+      "capAnchor": "Prime logistique 4,80 % (JLL I&L France Q1 2026) + 30 bps régional non prime",
+      "watch": false,
+      "watchNote": null,
+      "valuationDetail": null
+    },
+    {
+      "id": "A4",
+      "name": "Retail park",
+      "type": "Commerce",
+      "profile": "Income / secondaire",
+      "location": "Périphérie Lille",
+      "occupancy": 0.92,
+      "wault": 4,
+      "leaseIndex": "ILC",
+      "value": 39,
+      "cap": 0.069,
+      "noi": 2.69,
+      "debt": 18,
+      "allInRate": 0.051,
+      "floatShare": 0.45,
+      "hedgeRatio": 0.3,
+      "capexReserve": 0.3,
+      "bpNoi": 2.75,
+      "capAnchor": "Contraste volontaire avec le prime commerce 4,00 % (JLL GPR) : un retail park de périphérie n'est pas du prime high-street",
+      "watch": false,
+      "watchNote": null,
+      "valuationDetail": null
+    },
+    {
+      "id": "A5",
+      "name": "Résidentiel géré",
+      "type": "Résidentiel",
+      "profile": "Défensif",
+      "location": "Île-de-France",
+      "occupancy": 0.95,
+      "wault": null,
+      "leaseIndex": "IRL",
+      "value": 35,
+      "cap": 0.044,
+      "noi": 1.54,
+      "debt": 14,
+      "allInRate": 0.0435,
+      "floatShare": 0.3,
+      "hedgeRatio": 0.5,
+      "capexReserve": 0.22,
+      "bpNoi": 1.5,
+      "capAnchor": "Hypothèse analyste (classe d'actif hors périmètre des deux notes JLL)",
+      "watch": false,
+      "watchNote": null,
+      "valuationDetail": null
+    },
+    {
+      "id": "A6",
+      "name": "Bureau Part-Dieu",
+      "type": "Bureau",
+      "profile": "Core+ régional",
+      "location": "Lyon 3e",
+      "occupancy": 0.94,
+      "wault": 4.6,
+      "leaseIndex": "ILAT",
+      "value": 29,
+      "cap": 0.055,
+      "noi": 1.6,
+      "debt": 12,
+      "allInRate": 0.0455,
+      "floatShare": 0.4,
+      "hedgeRatio": 0.4,
+      "capexReserve": 0.28,
+      "bpNoi": 1.65,
+      "capAnchor": "Hypothèse analyste : bureau régional Core+",
+      "watch": false,
+      "watchNote": null,
+      "valuationDetail": null
+    }
+  ],
+  "FUND": {
+    "name": "Fonds Core+ France (fictif)",
+    "asOf": "31/03/2026",
+    "cash": 8.2,
+    "otherLiabilities": 6.1,
+    "shares": 1705000,
+    "covenants": {
+      "ltvMax": 0.6,
+      "ltvAmberFrom": 0.57,
+      "dscrMin": 1.2,
+      "dscrAmberTo": 1.35
+    },
+    "ratios": {
+      "empriseMax": 0.35,
+      "empriseAmberFrom": 0.32,
+      "aifmMax": 2.5,
+      "aifmAmberFrom": 2.3
+    }
+  },
+  "BEAR": {
+    "rent": -0.1,
+    "vac": 0.04,
+    "cap": 0.0125,
+    "rate": 0.015
+  },
+  "SLIDERS": [
+    {
+      "key": "rent",
+      "label": "Choc sur les loyers",
+      "unit": "%",
+      "min": -20,
+      "max": 10,
+      "step": 1,
+      "base": 0,
+      "bear": -10,
+      "hint": "S'applique au NOI de chaque actif, donc à la fois au cash-flow et à l'assiette de valeur."
+    },
+    {
+      "key": "vac",
+      "label": "Vacance additionnelle",
+      "unit": "bps",
+      "min": 0,
+      "max": 800,
+      "step": 50,
+      "base": 0,
+      "bear": 400,
+      "hint": "+100 bps de vacance ≈ −€0,17m de NOI annuel sur ce portefeuille."
+    },
+    {
+      "key": "cap",
+      "label": "Expansion des cap rates",
+      "unit": "bps",
+      "min": 0,
+      "max": 250,
+      "step": 25,
+      "base": 0,
+      "bear": 125,
+      "hint": "Seul levier qui ne touche pas le NOI : il comprime la valeur, donc la LTV.",
+      "warning": "JLL constate des prime yields stables au T1 2026 : ce slider est un stress hypothétique, pas un scénario central."
+    },
+    {
+      "key": "rate",
+      "label": "Hausse des taux courts",
+      "unit": "bps",
+      "min": 0,
+      "max": 300,
+      "step": 25,
+      "base": 0,
+      "bear": 150,
+      "hint": "Ne renchérit que l'exposition nette après couverture (€37m sur €149m de dette)."
+    }
+  ],
+  "MONTHLY_FLOWS": {
+    "startYear": 2024,
+    "startMonthIndex": 3,
+    "zThreshold": 2.5,
+    "values": [
+      1.42,
+      1.44,
+      1.41,
+      1.45,
+      1.43,
+      1.4,
+      1.46,
+      1.44,
+      1.79,
+      1.42,
+      1.45,
+      1.43,
+      1.41,
+      1.44,
+      1.42,
+      0.96,
+      1.43,
+      1.45,
+      1.41,
+      1.44,
+      1.43,
+      1.42,
+      1.46,
+      1.44
+    ],
+    "annotations": {
+      "8": "Indemnité de résiliation anticipée — locataire retail park (A4)",
+      "15": "Impayé locataire Tour La Défense (A2), régularisé le mois suivant"
+    }
+  },
+  "TREASURY": {
+    "startYear": 2026,
+    "startMonthIndex": 3,
+    "openingCash": 8.2,
+    "cashMin": 3,
+    "feesMonthly": 0.15,
+    "capexQuarterly": [
+      0.8,
+      0.55,
+      0.6,
+      0.4
+    ],
+    "serviceMonths": [
+      2,
+      5,
+      8,
+      11
+    ],
+    "distributionMonths": [
+      2,
+      8
+    ],
+    "distributionAmount": 3.5
+  },
+  "LANDING": [
+    {
+      "id": "A1",
+      "q1Actual": 1,
+      "landing": 4.04,
+      "cause": "Indexation ILAT moindre qu'anticipé au BP"
+    },
+    {
+      "id": "A2",
+      "q1Actual": 0.95,
+      "landing": 3.7,
+      "cause": "Départ locataire confirmé au T3 (2 étages), relocation visée 2027"
+    },
+    {
+      "id": "A3",
+      "q1Actual": 0.89,
+      "landing": 3.62,
+      "cause": "Indexation pleine, occupation 98 %"
+    },
+    {
+      "id": "A4",
+      "q1Actual": 0.67,
+      "landing": 2.67,
+      "cause": "Franchise accordée au renouvellement du moyeu food court"
+    },
+    {
+      "id": "A5",
+      "q1Actual": 0.39,
+      "landing": 1.56,
+      "cause": "IRL + taux de remplissage supérieur au BP"
+    },
+    {
+      "id": "A6",
+      "q1Actual": 0.4,
+      "landing": 1.62,
+      "cause": "Vacance ponctuelle d'un plateau au T2"
+    }
+  ],
+  "MARKET": {
+    "sources": [
+      {
+        "title": "Investment, Industrial & Logistics, France — Q1 2026",
+        "publisher": "JLL Research",
+        "authors": "Simon-Pierre Richard, Soline Vinçon",
+        "facts": "Prime entrepôts 4,80 %, locaux d'activité 5,80 % (stables) · I&L France €361m, −62 % sur un an · internationaux 25 % (moyenne 5 ans : 54 %)"
+      },
+      {
+        "title": "Investment, Greater Paris Region — Q1 2026",
+        "publisher": "JLL Research",
+        "authors": "Stephan von Barczy, Soline Vinçon",
+        "facts": "Prime bureaux et commerce 4,00 %, logistique 4,80 % (stables) · IDF €1 281m, −47 % sur un an · 4 deals > €100m = 74 % du volume · internationaux 40 %"
+      }
+    ]
+  },
+  "DISCLAIMER": "Fonds fictif à but de démonstration. Cap rates ancrés sur les notes JLL France Q1 2026 (I&L et Greater Paris Region) ; les niveaux par actif sont des hypothèses calibrées, non une base de marché propriétaire."
+}

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cockpit Fund Controlling — Fonds Core+ France (démo)</title>
+<meta name="description" content="Cockpit de pilotage d'un fonds immobilier core+ français fictif : consolidation NAV, covenants LTV/DSCR, stress de marché interactif. Démo statique de fund controlling, données réconciliées et sourcées (JLL Q1 2026).">
+<meta property="og:title" content="Cockpit Fund Controlling — Fonds Core+ France (démo)">
+<meta property="og:description" content="NAV, covenants, stress test : un covenant mord, l'autre est un matelas. Démo interactive de fund controlling immobilier.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2314213D'/%3E%3Cpath d='M14 44 26 30l8 7 14-17' stroke='%23C9A24B' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ====== Barre sticky (apparaît au scroll) ====== -->
+<div id="stickybar" aria-hidden="true">
+  <div class="wrap sb-inner">
+    <span class="sb-brand">Cockpit — Core+ France</span>
+    <nav class="sb-nav">
+      <a href="#consolidation">Consolidation</a>
+      <a href="#covenants">Covenants</a>
+      <a href="#stress">Stress</a>
+      <a href="#portefeuille">Portefeuille</a>
+      <a href="#tresorerie">Trésorerie</a>
+      <a href="#analyse">Cash-flow &amp; flux</a>
+      <a href="#commentaire">Commentaire</a>
+    </nav>
+    <span class="sb-spacer"></span>
+    <span class="sb-stat">LTV <span class="mono" id="sb-ltv">—</span><span id="sb-ltv-pill"></span></span>
+    <span class="sb-stat">DSCR <span class="mono" id="sb-dscr">—</span><span id="sb-dscr-pill"></span></span>
+    <span class="sb-scenario" id="sb-scenario">Situation de base</span>
+    <button class="sb-btn" id="sb-bear" title="Raccourci : B">Bear</button>
+  </div>
+</div>
+
+<!-- ====== Header ====== -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <div>
+        <p class="kicker">Démonstration · Fund controlling immobilier</p>
+        <h1>Cockpit de fund controlling</h1>
+        <p class="hero-sub">Fonds immobilier core+ France fictif, 6 actifs — consolidation NAV, hiérarchie des
+        covenants, stress de marché. Tous les agrégats sont dérivés du tableau d'actifs et réconciliés au chargement&nbsp;:
+        rien n'est saisi à la main.</p>
+      </div>
+      <div class="hero-meta">
+        <span class="asof">Situation au 31/03/2026</span>
+        <span id="hdr-status"></span>
+      </div>
+    </div>
+    <p class="disclaimer">Fonds fictif à but de démonstration. Cap rates ancrés sur les notes JLL France Q1&nbsp;2026
+    (I&amp;L et Greater Paris Region)&nbsp;; les niveaux par actif sont des hypothèses calibrées, non une base de
+    marché propriétaire.</p>
+  </div>
+  <div id="hero-sentinel"></div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <!-- ====== M1 — Consolidation ====== -->
+    <section id="consolidation">
+      <div class="sec-head">
+        <p class="kicker">01 · Consolidation</p>
+        <h2>Photo du fonds</h2>
+        <p class="sec-desc">Six indicateurs dérivés de la grille d'actifs. Sous stress, chaque carte affiche son
+        écart par rapport à la situation de base.</p>
+      </div>
+      <div id="kpi-grid"></div>
+    </section>
+
+    <!-- ====== M3 — Covenants ====== -->
+    <section id="covenants">
+      <div class="sec-head">
+        <p class="kicker">02 · Covenants</p>
+        <h2>Un covenant mord, l'autre est un matelas</h2>
+      </div>
+      <div class="card">
+        <div class="gauges">
+          <div class="gauge" id="gauge-ltv">
+            <div class="gauge-head">
+              <div>
+                <h3>LTV consolidée — max 60&nbsp;%</h3>
+                <span class="gauge-tag">Covenant binding · zone d'alerte dès 57&nbsp;%</span>
+              </div>
+              <div class="gauge-right">
+                <span class="gauge-val mono">—</span>
+                <span class="gauge-pill"></span>
+              </div>
+            </div>
+            <div class="gauge-track">
+              <span class="tick tick-amber"></span>
+              <span class="tick tick-red"></span>
+              <span class="gauge-ghost" title="Situation de base"></span>
+              <span class="gauge-marker"></span>
+            </div>
+            <div class="gauge-scale">
+              <span>30&nbsp;%</span>
+              <span class="tick-label tl-amber">alerte 57&nbsp;%</span>
+              <span class="tick-label tl-red">max 60&nbsp;%</span>
+              <span>75&nbsp;%</span>
+            </div>
+            <p class="gauge-sub">Le stress de valeur (expansion des cap rates) pousse la LTV vers son seuil bien
+            avant que le DSCR ne s'approche du sien&nbsp;: c'est le covenant qui mord.</p>
+          </div>
+          <div class="gauge" id="gauge-dscr">
+            <div class="gauge-head">
+              <div>
+                <h3>DSCR (interest-only) — min 1,20x</h3>
+                <span class="gauge-tag">Covenant matelas · zone d'alerte sous 1,35x</span>
+              </div>
+              <div class="gauge-right">
+                <span class="gauge-val mono">—</span>
+                <span class="gauge-pill"></span>
+              </div>
+            </div>
+            <div class="gauge-track">
+              <span class="tick tick-red"></span>
+              <span class="tick tick-amber"></span>
+              <span class="gauge-ghost" title="Situation de base"></span>
+              <span class="gauge-marker"></span>
+            </div>
+            <div class="gauge-scale">
+              <span>1,0x</span>
+              <span class="tick-label tl-red">min 1,20x</span>
+              <span class="tick-label tl-amber">1,35x</span>
+              <span>3,0x</span>
+            </div>
+            <p class="gauge-sub">Dette majoritairement interest-only et exposition aux taux partiellement couverte&nbsp;:
+            le DSCR ne casse dans aucun des scénarios couverts par les plages de stress.</p>
+          </div>
+        </div>
+        <div class="ratio-head">
+          <h4>Ratios de structure (hors covenants bancaires)</h4>
+        </div>
+        <div id="ratio-strip" class="ratio-strip"></div>
+        <div id="breach-banner" class="banner banner-ok"></div>
+        <p class="covenant-note">«&nbsp;Le stress principal provient de l'expansion des cap rates, qui comprime la GAV
+        et fait monter la LTV. Le DSCR reste au-dessus du seuil grâce à une dette majoritairement interest-only et une
+        exposition nette aux taux partiellement couverte.&nbsp;»</p>
+      </div>
+    </section>
+
+    <!-- ====== M4 — Stress ====== -->
+    <section id="stress">
+      <div class="sec-head">
+        <p class="kicker">03 · Stress test</p>
+        <h2>Moteur de stress</h2>
+        <p class="sec-desc">Quatre chocs de marché, recalcul intégral à chaque mouvement. Le scénario Bear pré-positionne
+        le combo calibré pour faire casser la LTV&nbsp;— et seulement elle.</p>
+      </div>
+      <div class="card">
+        <div class="stress-grid">
+          <div id="sliders"></div>
+          <div class="scenario-rail">
+            <div class="scenario-state" id="scenario-name">Situation de base</div>
+            <button class="btn btn-bear" id="btn-bear" title="Raccourci : B">
+              <span class="arr">↘</span>&nbsp;Scénario Bear
+            </button>
+            <button class="btn btn-ghost is-hidden" id="btn-reset" title="Raccourci : R">Réinitialiser</button>
+            <div class="tipping">
+              <h4>Points de bascule (vérifiés par calcul)</h4>
+              <ul>
+                <li><span>Situation de base</span><span class="mono tp-green">LTV 46,9&nbsp;%</span></li>
+                <li><span>Cap rates +125&nbsp;bps seuls</span><span class="mono tp-amber">LTV 58,2&nbsp;%</span></li>
+                <li><span>Cap rates +150&nbsp;bps seuls</span><span class="mono tp-red">LTV 60,4&nbsp;%</span></li>
+                <li><span>Scénario Bear complet</span><span class="mono tp-red">LTV 67,3&nbsp;%</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== M2 — Portefeuille ====== -->
+    <section id="portefeuille">
+      <div class="sec-head">
+        <p class="kicker">04 · Portefeuille</p>
+        <h2>Grille des actifs</h2>
+        <p class="sec-desc">Cliquer sur une ligne pour le détail financement &amp; contrôle. La Tour La Défense (A2)
+        est l'actif à surveiller du portefeuille&nbsp;: vacance, WAULT court, capex, refinancement.</p>
+      </div>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th><th>Actif</th>
+                <th class="num">Occ.</th><th class="num">WAULT</th><th>Index</th>
+                <th class="num">Valeur</th><th class="num">Cap</th><th class="num">NOI</th>
+                <th class="num">Dette</th><th class="num">LTV</th><th class="num">vs BP</th><th></th>
+              </tr>
+            </thead>
+            <tbody id="asset-tbody"></tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2">Portefeuille (6 actifs)</td>
+                <td class="num mono" id="t-occ"></td>
+                <td class="num mono" id="t-wault"></td>
+                <td></td>
+                <td class="num mono" id="t-value"></td>
+                <td class="num mono" id="t-cap"></td>
+                <td class="num mono" id="t-noi"></td>
+                <td class="num mono" id="t-debt"></td>
+                <td class="num mono" id="t-ltv"></td>
+                <td class="num" id="t-bp"></td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <p class="table-note" id="table-note"></p>
+      </div>
+      <div class="card landing-card">
+        <h3 style="font-family:var(--serif);font-size:17px;margin:0 0 4px;">Atterrissage budgétaire 2026e</h3>
+        <p class="sec-desc" style="margin:0 0 14px;">Réalisé T1 + projection T2–T4 = atterrissage annuel, comparé au
+        budget. Production trimestrielle&nbsp;— prochain point&nbsp;: atterrissage T2 (juillet 2026).</p>
+        <div class="table-wrap">
+          <table class="landing-table">
+            <thead>
+              <tr>
+                <th>Actif</th><th class="num">BP 2026</th><th class="num">Réalisé T1</th>
+                <th class="num">Atterrissage 2026e</th><th class="num">Écart vs BP</th><th>Cause principale</th>
+              </tr>
+            </thead>
+            <tbody id="landing-tbody"></tbody>
+            <tfoot id="landing-tfoot"></tfoot>
+          </table>
+        </div>
+        <p class="table-note">Statique&nbsp;: l'atterrissage compare le réalisé au budget&nbsp;— il ne réagit pas aux
+        stress simulés.</p>
+      </div>
+    </section>
+
+    <!-- ====== M9 — Trésorerie ====== -->
+    <section id="tresorerie">
+      <div class="sec-head">
+        <p class="kicker">05 · Trésorerie</p>
+        <h2>Prévisionnel de trésorerie — 12 mois roulants</h2>
+        <p class="sec-desc">Encaissements, service de dette trimestriel, plan de travaux et distributions semestrielles.
+        Couplé au scénario courant&nbsp;: en cas de breach covenant, les distributions se suspendent&nbsp;— le cash trap
+        devient visible.</p>
+      </div>
+      <div class="card">
+        <div id="tr-chips" class="chips-row"></div>
+        <div id="tr-chart"></div>
+        <div class="table-wrap">
+          <table class="tr-table">
+            <thead>
+              <tr>
+                <th>Mois</th><th class="num">Encaissements</th><th class="num">Service dette</th>
+                <th class="num">Capex / TI</th><th class="num">Frais</th><th class="num">Distributions</th>
+                <th class="num">Solde (€m)</th>
+              </tr>
+            </thead>
+            <tbody id="tr-tbody"></tbody>
+            <tfoot id="tr-tfoot"></tfoot>
+          </table>
+        </div>
+        <p class="table-note" id="tr-note"></p>
+      </div>
+    </section>
+
+    <!-- ====== M5 + M6 — Cash-flow & contrôle des flux ====== -->
+    <section id="analyse">
+      <div class="sec-head">
+        <p class="kicker">06 · Cash-flow &amp; contrôle des flux</p>
+        <h2>Du NOI au cash, et la surveillance des encaissements</h2>
+      </div>
+      <div class="split">
+        <div class="card">
+          <h3 style="font-family:var(--serif);font-size:17px;margin:0 0 4px;">Pont NOI → cash-flow immobilier</h3>
+          <p class="sec-desc" style="margin:0 0 14px;">Le NOI est avant capex/TI&nbsp;— d'où deux DSCR.</p>
+          <div id="waterfall"></div>
+          <div id="dscr-chips"></div>
+          <p class="gloss">NOI = loyers potentiels − vacance − impayés − charges non récupérables, <strong>avant</strong>
+          capex/TI. Deux DSCR&nbsp;: celui du covenant (NOI, dette interest-only) et l'économique (après capex/TI).
+          Ne jamais confondre les deux.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-family:var(--serif);font-size:17px;margin:0 0 4px;">Encaissements locatifs nets — 24 mois</h3>
+          <p class="sec-desc" style="margin:0 0 14px;">Détection d'anomalies par z-score, seuil ±2,5σ.</p>
+          <div id="flows-chart"></div>
+          <ul id="flows-legend"></ul>
+          <p class="flows-method">Méthode&nbsp;: z-score sur 24 mois glissants (moyenne et écart-type de la série complète,
+          n−1). Données réalisées&nbsp;: ce module ne réagit pas aux stress simulés.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== M7 — Commentaire de gestion ====== -->
+    <section id="commentaire">
+      <div class="sec-head">
+        <p class="kicker">07 · Commentaire de gestion</p>
+        <h2>Le réflexe du controller&nbsp;: relire avant de diffuser</h2>
+      </div>
+      <div class="card-navy">
+        <div class="comment-head">
+          <div>
+            <p class="kicker">Génération assistée</p>
+            <h2>Commentaire de gestion</h2>
+          </div>
+          <button class="btn btn-gold" id="btn-comment" title="Raccourci : G">Générer le commentaire de gestion</button>
+        </div>
+        <div id="comment-output" hidden></div>
+        <div id="comment-stale" hidden>⚠ L'état du portefeuille a changé depuis la génération — régénérer le commentaire.</div>
+        <p class="comment-nb">N.B. — Commentaires pré-rédigés sélectionnés selon l'état du portefeuille (pas d'appel à un
+        modèle dans une page statique). L'exercice montre ce qu'un controller doit relire avant diffusion&nbsp;: les chiffres,
+        la causalité, la conformité aux sources.</p>
+      </div>
+    </section>
+
+    <!-- ====== Méthodologie & glossaire ====== -->
+    <section id="methodo">
+      <details class="box">
+        <summary>Méthodologie &amp; limites du modèle</summary>
+        <div class="box-body">
+          <ul class="method-list">
+            <li>Valorisation par capitalisation directe du NOI in-place (valeur = NOI ÷ cap rate)&nbsp;; pas de DCF.
+            La valeur de base est une donnée d'expertise&nbsp;; NOI ÷ cap sert de contrôle de cohérence (tolérance €0,2m).</li>
+            <li>Stress multiplicatif sur le NOI&nbsp;: (1 + choc loyers) × (1 − vacance additionnelle), appliqué uniformément
+            aux six actifs.</li>
+            <li>Le choc de taux ne renchérit que l'exposition nette après couverture (€37,0m)&nbsp;; il n'est pas propagé
+            aux cap rates — l'expansion des caps est un levier distinct, assumé comme stress hypothétique
+            (prime yields constatés stables par JLL au T1 2026).</li>
+            <li>Capex/TI traités en réserve contractuelle constante, non stressée.</li>
+            <li>Dette 100&nbsp;% interest-only&nbsp;: le service se limite aux intérêts, le principal se refinance à l'échéance.</li>
+            <li>Les écarts budget (BP) comparent le réalisé au budget&nbsp;: ils ne bougent pas sous stress simulé.</li>
+            <li>Aucun agrégat saisi&nbsp;: GAV, NAV, LTV, DSCR sont recalculés depuis la grille à chaque interaction,
+            et une recette automatique vérifie les valeurs de référence au chargement (résultat en pied de page).</li>
+          </ul>
+        </div>
+      </details>
+      <details class="box">
+        <summary>Glossaire</summary>
+        <div class="box-body">
+          <dl class="gloss-grid">
+            <dt>GAV / NAV</dt><dd>Valeur brute des actifs / valeur nette = GAV − dette + cash − autres passifs.</dd>
+            <dt>NOI</dt><dd>Loyers potentiels − vacance − impayés − charges non récupérables. <strong>Avant</strong> capex/TI.</dd>
+            <dt>Cap rate</dt><dd>NOI ÷ valeur. «&nbsp;Blended&nbsp;» = au niveau du portefeuille.</dd>
+            <dt>LTV</dt><dd>Dette ÷ valeur. Covenant binding du fonds (max 60&nbsp;%).</dd>
+            <dt>DSCR</dt><dd>NOI ÷ service de la dette. Covenant&nbsp;: sur NOI, dette interest-only. Économique&nbsp;: après capex/TI.</dd>
+            <dt>WAULT</dt><dd>Durée ferme résiduelle moyenne pondérée des baux. Non applicable en résidentiel.</dd>
+            <dt>ILAT / ILC / IRL</dt><dd>Indices d'indexation des loyers&nbsp;: activités tertiaires (bureaux, logistique) / commerces / résidentiel.</dd>
+            <dt>Interest-only</dt><dd>Dette sans amortissement&nbsp;: service = intérêts seuls, principal refinancé à l'échéance.</dd>
+            <dt>Exposition nette</dt><dd>Dette × part variable × (1 − couverture)&nbsp;: la seule assiette sensible à la hausse des taux.</dd>
+            <dt>Cap expansion</dt><dd>Hausse des taux de capitalisation → baisse mécanique des valeurs à NOI constant.</dd>
+            <dt>Cash trap</dt><dd>Blocage des distributions par les prêteurs tant qu'un covenant est en breach ou sous surveillance.</dd>
+          </dl>
+        </div>
+      </details>
+    </section>
+
+    <!-- ====== Footer ====== -->
+    <footer>
+      <h4>Sources de marché</h4>
+      <p class="src"><strong>JLL Research — Investment, Industrial &amp; Logistics, France, Q1 2026</strong>
+      (Simon-Pierre Richard, Soline Vinçon). Prime entrepôts 4,80&nbsp;%, locaux d'activité 5,80&nbsp;% (stables)&nbsp;·
+      I&amp;L France €361m, −62&nbsp;% sur un an&nbsp;· investisseurs internationaux 25&nbsp;% (moyenne 5 ans&nbsp;: 54&nbsp;%).</p>
+      <p class="src"><strong>JLL Research — Investment, Greater Paris Region, Q1 2026</strong>
+      (Stephan von Barczy, Soline Vinçon). Prime bureaux et commerce 4,00&nbsp;%, logistique 4,80&nbsp;% (stables)&nbsp;·
+      IDF €1&nbsp;281m, −47&nbsp;% sur un an&nbsp;· 4 transactions &gt; €100m = 74&nbsp;% du volume&nbsp;· internationaux 40&nbsp;%.</p>
+      <p class="src">Fonds, actifs, locataires et flux sont fictifs&nbsp;; ils n'utilisent aucune donnée propriétaire.
+      Démo réalisée pour illustrer une candidature de fund controller — page 100&nbsp;% statique, sans backend ni appel réseau.</p>
+      <span id="footer-recon"></span>
+      <p class="downloads">Téléchargements&nbsp;: <a href="pack/pack_comite_core_plus_france.xlsx" download>pack comité (xlsx)</a>
+      &nbsp;·&nbsp; <a href="#" id="dl-csv">grille d'actifs (csv)</a> — générés depuis le même data model que la page.</p>
+      <p class="shortcuts">Raccourcis clavier&nbsp;: <kbd>B</kbd> Scénario Bear&nbsp;· <kbd>R</kbd> Réinitialiser&nbsp;·
+      <kbd>G</kbd> Générer le commentaire</p>
+    </footer>
+
+  </div>
+</main>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
