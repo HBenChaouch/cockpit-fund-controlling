@@ -1,0 +1,6 @@
+# Binaires : aucune conversion de fins de ligne (évite toute corruption au checkout)
+*.pdf   binary
+*.xlsx  binary
+*.woff2 binary
+*.png   binary
+*.ico   binary
